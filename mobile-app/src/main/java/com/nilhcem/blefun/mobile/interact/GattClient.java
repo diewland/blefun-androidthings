@@ -157,11 +157,11 @@ public class GattClient {
         mContext.unregisterReceiver(mBluetoothReceiver);
     }
 
-    public void writeInteractor() {
+    public void writeInteractor(String msg) {
         BluetoothGattCharacteristic interactor = mBluetoothGatt
                 .getService(SERVICE_UUID)
                 .getCharacteristic(CHARACTERISTIC_INTERACTOR_UUID);
-        interactor.setValue("!");
+        interactor.setValue(msg);
         mBluetoothGatt.writeCharacteristic(interactor);
     }
 

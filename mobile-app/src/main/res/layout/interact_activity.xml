@@ -9,5 +9,5 @@
         android:layout_height="150dp"
         android:layout_gravity="center"
         android:background="@drawable/round_button"
-        android:text="Awesome!" />
+        android:text="Connecting.." />
 </FrameLayout>

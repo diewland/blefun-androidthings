@@ -10,30 +10,24 @@ public class MainActivity extends Activity {
 
     private static final String TAG = Activity.class.getSimpleName();
 
-    private AwesomenessCounter mAwesomenessCounter;
-    //private final LuckyCat mLuckyCat = new LuckyCat();
+    private final RBHat rbHat = new RBHat();
     private final GattServer mGattServer = new GattServer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAwesomenessCounter = new AwesomenessCounter(this);
 
-        //mLuckyCat.onCreate();
-        //mLuckyCat.updateCounter(mAwesomenessCounter.getCounterValue());
+        rbHat.onCreate();
 
         mGattServer.onCreate(this, new GattServer.GattServerListener() {
             @Override
             public byte[] onCounterRead() {
-                return Ints.toByteArray(mAwesomenessCounter.getCounterValue());
+                return Ints.toByteArray(99);
             }
 
             @Override
-            public void onInteractorWritten() {
-                int count = mAwesomenessCounter.incrementCounterValue();
-                Log.d(TAG, "corrent counter ==> " + Integer.toString(count));
-                //mLuckyCat.movePaw();
-                //mLuckyCat.updateCounter(count);
+            public void onInteractorWritten(String value) {
+                Log.d(TAG, "client message ==> " + value);
             }
         });
     }
@@ -42,6 +36,6 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         mGattServer.onDestroy();
-        //mLuckyCat.onDestroy();
+        rbHat.onDestroy();
     }
 }

@@ -24,6 +24,7 @@ import android.util.Log;
 
 import com.nilhcem.blefun.common.AwesomenessProfile;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +41,7 @@ public class GattServer {
     private static final String TAG = GattServer.class.getSimpleName();
 
     public interface GattServerListener {
-        void onInteractorWritten();
+        void onInteractorWritten(String value);
 
         byte[] onCounterRead();
     }
@@ -119,11 +120,17 @@ public class GattServer {
 
         @Override
         public void onCharacteristicWriteRequest(BluetoothDevice device, int requestId, BluetoothGattCharacteristic characteristic, boolean preparedWrite, boolean responseNeeded, int offset, byte[] value) {
+            String valueStr = null;
+            try {
+                valueStr = new String(value, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             if (CHARACTERISTIC_INTERACTOR_UUID.equals(characteristic.getUuid())) {
                 Log.i(TAG, "Write interactor");
 
                 if (mListener != null) {
-                    mListener.onInteractorWritten();
+                    mListener.onInteractorWritten(valueStr);
                 }
                 notifyRegisteredDevices();
             } else {
@@ -242,7 +249,7 @@ public class GattServer {
                 .build();
 
         AdvertiseData data = new AdvertiseData.Builder()
-                // .setIncludeDeviceName(true) --> fixed "LE Advertise Failed: 1"
+                // .setIncludeDeviceName(true) --> fix LE Advertise Failed: 1
                 .setIncludeTxPowerLevel(false)
                 .addServiceUuid(new ParcelUuid(SERVICE_UUID))
                 .build();

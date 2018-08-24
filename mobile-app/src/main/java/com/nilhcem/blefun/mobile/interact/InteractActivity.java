@@ -25,7 +25,7 @@ public class InteractActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGattClient.writeInteractor();
+                mGattClient.writeInteractor("from client mess");
             }
         });
 
@@ -36,7 +36,7 @@ public class InteractActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mButton.setText(Integer.toString(value));
+                        Toast.makeText(InteractActivity.this, "Got `"+ Integer.toString(value) +"` from server", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -47,7 +47,10 @@ public class InteractActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         mButton.setEnabled(success);
-                        if (!success) {
+                        if(success){
+                            mButton.setText("Connected");
+                        }
+                        else {
                             Toast.makeText(InteractActivity.this, "Connection error", Toast.LENGTH_LONG).show();
                         }
                     }
