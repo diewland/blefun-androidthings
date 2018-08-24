@@ -51,7 +51,7 @@ public class InteractActivity extends AppCompatActivity {
                             mButton.setText("Connected");
                         }
                         else {
-                            Toast.makeText(InteractActivity.this, "Connection error", Toast.LENGTH_LONG).show();
+                            mButton.setText("Connection Error");
                         }
                     }
                 });
