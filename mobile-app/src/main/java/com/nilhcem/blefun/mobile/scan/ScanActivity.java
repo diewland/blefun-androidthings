@@ -56,16 +56,21 @@ public class ScanActivity extends AppCompatActivity {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             // We scan with report delay > 0. This will never be called.
-            Log.i(TAG, "onScanResult: " + result.getDevice().getAddress());
+            // Log.i(TAG, "onScanResult: " + result.getDevice().getAddress());
         }
 
         @Override
         public void onBatchScanResults(List<ScanResult> results) {
-            Log.i(TAG, "onBatchScanResults: " + results.toString());
+            // Log.i(TAG, "onBatchScanResults: " + results.toString());
 
             if (!results.isEmpty()) {
                 ScanResult result = results.get(0);
-                startInteractActivity(result.getDevice());
+
+                // it should close in range enough
+                Log.d(TAG, "current_rssi: " + result.getRssi());
+                if(result.getRssi() > -60){
+                    startInteractActivity(result.getDevice());
+                }
             }
         }
 
