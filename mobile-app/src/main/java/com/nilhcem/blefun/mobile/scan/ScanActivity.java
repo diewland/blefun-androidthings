@@ -68,8 +68,13 @@ public class ScanActivity extends AppCompatActivity {
 
                 // it should close in range enough
                 Log.d(TAG, "current_rssi: " + result.getRssi());
+                Toast.makeText(getApplicationContext(), "RSSI: " + result.getRssi(), Toast.LENGTH_SHORT).show();
+
                 if(result.getRssi() > -60){
                     startInteractActivity(result.getDevice());
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "You are not close enough ("+ result.getRssi() +")", Toast.LENGTH_SHORT).show();
                 }
             }
         }

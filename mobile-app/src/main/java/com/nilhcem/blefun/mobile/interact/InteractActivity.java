@@ -25,7 +25,7 @@ public class InteractActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGattClient.writeInteractor("aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffiiiiiiiiiijjjjjjjjjjkkkkkkkkkkllllllllllmmmmmmmmmmnnnnnnnnnnooooooooooppppppppppqqqqqqqqqqrrrrrrrrrrssssssssssttttttttttuuuuuuuuuuvvvvvvvvvvwwwwwwwwwwxxxxxxxxxyyyyyyyyyyzzzzzzzzzz");
+                mGattClient.writeInteractor("Open the door"); // maximum size -> 20 bytes
             }
         });
 
@@ -48,7 +48,7 @@ public class InteractActivity extends AppCompatActivity {
                     public void run() {
                         mButton.setEnabled(success);
                         if(success){
-                            mButton.setText("Connected");
+                            mButton.setText("Open the door");
                         }
                         else {
                             mButton.setText("Connection Error");
